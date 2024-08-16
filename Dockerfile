@@ -17,12 +17,14 @@ ENV NODE_ENV=production
 
 WORKDIR /app/
 
+RUN curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr bash
+
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/package.json .
 COPY --from=base /app/package-lock.json .
 
-RUN npm ci
+RUN bun install --frozen-lockfile
 
-RUN npm run deploy-commands
+RUN bun run deploy-commands
 
-CMD ["npm", "start"]
+CMD ["bun", "start"]
