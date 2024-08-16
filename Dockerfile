@@ -1,17 +1,17 @@
 # Building
 
-FROM node:20-alpine AS base
+FROM oven/bun:alpine AS base
 
 WORKDIR /app/
 
 COPY . /app/
 
-RUN npm ci
-RUN npm run build
+RUN bun install --frozen-lockfile
+RUN bun run build
 
 # Deploy
 
-FROM node:20-alpine
+FROM node:22-alpine
 
 ENV NODE_ENV=production
 
