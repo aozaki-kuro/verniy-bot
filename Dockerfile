@@ -6,7 +6,7 @@ WORKDIR /app/
 
 COPY . /app/
 
-RUN bun install --frozen-lockfile
+RUN bun install
 RUN bun run build
 
 # Deploy
