@@ -17,7 +17,7 @@ ENV NODE_ENV=production
 
 WORKDIR /app/
 
-RUN curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr bash
+RUN curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr sh
 
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/package.json .
