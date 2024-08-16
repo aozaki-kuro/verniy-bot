@@ -6,14 +6,12 @@ WORKDIR /app/
 
 COPY . /app/
 
-RUN node -v
-
-RUN bun install --frozen-lockfile
+RUN bun install
 RUN bun run build
 
 # Deploy
 
-FROM node:22-alpine
+FROM oven/bun:alpine AS production
 
 ENV NODE_ENV=production
 
@@ -21,10 +19,10 @@ WORKDIR /app/
 
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/package.json .
-COPY --from=base /app/package-lock.json .
+COPY --from=base /app/bun.lockb .
 
-RUN npm ci
+RUN bun install --frozen-lockfile
 
-RUN npm run deploy-commands
+RUN bun run deploy-commands
 
-CMD ["npm", "start"]
+CMD ["bun", "start"]
