@@ -21,7 +21,7 @@ RUN curl -fsSL https://bun.sh/install | BUN_INSTALL=/usr sh
 
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/package.json .
-COPY --from=base /app/package-lock.json .
+COPY --from=base /app/bun.lockb .
 
 RUN bun install --frozen-lockfile
 
